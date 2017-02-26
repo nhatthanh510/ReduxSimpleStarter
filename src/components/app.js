@@ -10,10 +10,6 @@ export default class App extends Component {
 
   constructor(props) {
       super(props);
-      this.state = {
-          videos : [],
-          selectedVideo: null
-      };
       this.loadYoutubeData('Lac troi');
   }
 
@@ -22,10 +18,7 @@ export default class App extends Component {
           key : API_KEY,
           term: term
       }, (videos) => {
-          this.setState({
-              videos,
-              selectedVideo : videos[0]
-          });
+          console.log(videos);
       })
   }
 
@@ -33,16 +26,9 @@ export default class App extends Component {
     const videoSearch = _.debounce( (term) => {this.loadYoutubeData(term)}, 400 );
     return (
       <div>
-          <SearchBar
-            onTermChange = {videoSearch}
-          />
-          <VideoDetail
-              video = {this.state.selectedVideo}
-          />
-          <VideoList
-              videos = {this.state.videos}
-              onVideoSelect = {selectedVideo => this.setState({selectedVideo})}
-          />
+          <SearchBar/>
+          <VideoDetail/>
+          <VideoList/>
       </div>
     );
   }

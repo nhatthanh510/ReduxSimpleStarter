@@ -2,41 +2,37 @@
  * Created by admin on 2/25/2017.
  */
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import { bindActionCreators } from 'redux'
+import { SEARCH, FETCH, fetchVideo, search_term } from '../actions/action_search';
 
-export default class SearchBar extends Component {
+
+class SearchBar extends Component {
     constructor(props) {
         super(props);
-
-        this.state = { term : '' };
-
-        this.onTermChange = props.onTermChange;
     }
 
-    onInputChange(event) {
-        this.setState({term: event.target.value});
-        this.onTermChange(event.target.value);
-    }
-
-    onButtonClick(event) {
+    onFormSubmit(event) {
         event.preventDefault();
-        alert('Chưa có event khỏi bấm mấy thím !');
+        this.props.fetchVideo('Son Tung');
     }
-
     render() {
         return (
             <div>
-                <form action="" className="input-group search-bar">
+                <form action="" className="input-group search-bar" onSubmit={ (event) => this.onFormSubmit(event)}>
                     <input
                         placeholder="Finding your favorite videos"
                         className="form-control"
-                        value={this.state.term}
-                        onChange = { (event) => this.onInputChange(event)}
                     />
                     <span className="input-group-btn">
-                        <button type="submit" className="btn btn-secondary" onClick={ (event) => this.onButtonClick(event) }>Submit</button>
+                        <button type="submit" className="btn btn-secondary">Submit</button>
                     </span>
                 </form>
             </div>
         )
     }
 }
+
+
+
+export default SearchBar
