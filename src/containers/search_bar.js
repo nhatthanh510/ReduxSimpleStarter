@@ -2,9 +2,10 @@
  * Created by admin on 2/25/2017.
  */
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators } from 'redux'
-import { SEARCH, FETCH, fetchVideo, search_term } from '../actions/action_search';
+import { SEARCH, FETCH, fetchVideo, selectVideo, search_term } from '../actions/action_search';
 
 
 class SearchBar extends Component {
@@ -14,7 +15,7 @@ class SearchBar extends Component {
 
     onFormSubmit(event) {
         event.preventDefault();
-        this.props.fetchVideo('Son Tung');
+        this.props.fetchVideo(ReactDOM.findDOMNode(this.refs.termSearch).value);
     }
     render() {
         return (
@@ -23,9 +24,10 @@ class SearchBar extends Component {
                     <input
                         placeholder="Finding your favorite videos"
                         className="form-control"
+                        ref = "termSearch"
                     />
                     <span className="input-group-btn">
-                        <button type="submit" className="btn btn-secondary">Submit</button>
+                        <button type="submit" className="btn btn-secondary" >Submit</button>
                     </span>
                 </form>
             </div>
@@ -33,6 +35,12 @@ class SearchBar extends Component {
     }
 }
 
+function mapDispatchToProps(dispatch) {
+    return {
+        ...bindActionCreators({ fetchVideo}, dispatch),
+        ...bindActionCreators({ selectVideo }, dispatch)
+    }
 
+}
 
-export default SearchBar
+export default connect(null, mapDispatchToProps)(SearchBar)

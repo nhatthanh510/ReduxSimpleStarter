@@ -3,9 +3,10 @@
  */
 import axios from 'axios';
 const API_KEY = 'AIzaSyDXwOH4N2WINlYccGOzmWdpSK7JLRTUUKs';
-const ROOT_URL = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&part=id&type=video`;
+const ROOT_URL = `https://www.googleapis.com/youtube/v3/search?key=${API_KEY}&part=snippet`;
 export const SEARCH = 'SEARCH';
 export const FETCH = 'FETCH';
+export const SELECT_VIDEO = 'SELECT_VIDEO';
 
 
 export const  search_term = (term) => {
@@ -22,4 +23,12 @@ export const fetchVideo = (term) => {
         type : FETCH,
         payload : request
     }
+};
+
+
+export const selectVideo = (video) => {
+  return {
+      type: SELECT_VIDEO,
+      video
+  }
 };

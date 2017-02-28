@@ -18,7 +18,6 @@ export default class App extends Component {
           key : API_KEY,
           term: term
       }, (videos) => {
-          console.log(videos);
       })
   }
 
